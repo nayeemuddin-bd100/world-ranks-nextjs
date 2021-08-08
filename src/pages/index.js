@@ -5,7 +5,7 @@ import SearchInput from "../components/SearchInput/SearchInput";
 import styles from "../styles/Home.module.css";
 
 export default function Home({ countries }) {
-  console.log(countries);
+  // console.log(countries);
   const [keywords,setKeywords] = useState('')
  
 
@@ -31,7 +31,7 @@ export default function Home({ countries }) {
 
         <div className={styles.input}>
           <SearchInput
-            placeholder="Filter by Name, Region , SubRegion or Capital"
+            placeholder="Search by Name, Region , Subregion or Capital"
             onChange={onInputChange}
           />
         </div>

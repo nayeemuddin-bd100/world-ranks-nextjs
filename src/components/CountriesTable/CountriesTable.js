@@ -1,5 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable @next/next/link-passhref */
 import ExpandLessRoundedIcon from "@material-ui/icons/ExpandLessRounded";
 import ExpandMoreRoundedIcon from "@material-ui/icons/ExpandMoreRounded";
+import Link from "next/link";
 import React, { useState } from "react";
 import styles from "./CountriesTable.module.css";
 
@@ -56,11 +59,14 @@ const CountriesTable = ({ countries }) => {
     }
   return (
     <div>
+
       <div className={styles.heading}>
+        <div className={styles.heading_flag}></div>
         <button
           className={styles.heading_name}
           onClick={() => setValueAndDirection("name")}
         >
+          <div>Filte By</div> <br/>
           <div>Name</div>
           {value === "name" && <SortArrow direction={direction} />}
         </button>
@@ -73,13 +79,38 @@ const CountriesTable = ({ countries }) => {
           {value === "population" && <SortArrow direction={direction} />}
         </button>
 
-        {orderdCountries.map((country) => (
-          <div className={styles.row} key={country.alpha3Code}>
+        <button
+          className={styles.heading_area}
+          onClick={() => setValueAndDirection("area")}
+        >
+          <div>
+            Area (km<sup style={{ fontSize: "0.5rem" }}>2</sup>)
+          </div>
+          {value === "area" && <SortArrow direction={direction} />}
+        </button>
+
+        <button
+          className={styles.heading_gini}
+          onClick={() => setValueAndDirection("gini")}
+        >
+          <div>Gini</div>
+          {value === "gini" && <SortArrow direction={direction} />}
+        </button>
+      </div>
+
+      {orderdCountries.map((country) => (
+        <Link href={`/country/${country.alpha3Code}`} key={country.alpha3Code}>
+          <div className={styles.row}>
+            <div className={styles.flag}>
+              <img src={country.flag} alt={country.name} />
+            </div>
             <div className={styles.name}>{country.name}</div>
             <div className={styles.population}>{country.population}</div>
+            <div className={styles.area}>{country.area || 0}</div>
+            <div className={styles.gini}>{country.gini || 0} %</div>
           </div>
-        ))}
-      </div>
+        </Link>
+      ))}
     </div>
   );
 };

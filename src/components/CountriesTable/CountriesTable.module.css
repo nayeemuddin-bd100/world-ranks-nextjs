@@ -1,12 +1,10 @@
 .heading {
   display: flex;
   padding: 20px;
-  /* extra */
-  flex-direction: column;
 }
 
 .heading button {
-  border: none;
+  /* border: none; */
   background-color: transparent;
   outline: none;
   cursor: pointer;
@@ -21,21 +19,19 @@
 .heading_population,
 .heading_area,
 .heading_gini {
-  /* flex: 4; */
-
+  flex: 4;
   color: var(--text-color-secondary);
   font-weight: 500;
 
   display: flex;
   justify-content: center;
   align-items: center;
-
-  /* extra */
-  flex: 1;
 }
 
 .heading_name {
   justify-content: flex-start;
+  /* extra */
+  /* border: 2px solid red; */
 }
 
 .heading_arrow {
