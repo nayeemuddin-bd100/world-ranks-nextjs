@@ -1,4 +1,6 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @next/next/no-img-element */
+import { useRouter } from "next/dist/client/router";
 import React, { useCallback, useEffect, useState } from "react";
 import Layout from "../../components/Layout/Layout";
 import styles from "./country.module.css";
@@ -11,6 +13,10 @@ const getCountry = async (id) => {
 };
 
 const Country = ({ country }) => {
+   const router = useRouter();
+   if (router.isFallback) {
+     return <h2>Loading...</h2>;
+   }
   const [borders, setBorders] = useState([]);
   const languages = country.languages.map(({ name }) => name).join(", ");
   const currencies = country.currencies.map(({ name }) => name).join(", ");
@@ -29,7 +35,8 @@ const Country = ({ country }) => {
     }, [getBorders]);
 
 
-
+ 
+  
   return (
     <Layout title={country.name}>
       <div className={styles.container}>
@@ -94,15 +101,7 @@ const Country = ({ country }) => {
               </div>
 
               <div className={styles.details_panel_borders_container}>
-                {/* {borders.map(({ flag, name }) => (
-                  <div className={styles.details_panel_borders_country}>
-                    <img src={flag} alt={name}></img>
-
-                    <div className={styles.details_panel_borders_name}>
-                      {name}
-                    </div>
-                  </div>
-                ))} */}
+               
                 {borders.map(({ flag, name, alpha3Code }) => (
                   <div
                     key={alpha3Code}
@@ -126,8 +125,40 @@ const Country = ({ country }) => {
 
 export default Country;
 
-export const getServerSideProps = async ({ params }) => {
+// export const getServerSideProps = async ({ params }) => {
+//   const country = await getCountry(params.id);
+//   return {
+//     props: {
+//       country,
+//     },
+//   };
+// };
+
+export const getStaticPaths = async () => {
+  const res = await fetch("https://restcountries.eu/rest/v2/all");
+  const countries = await res.json()
+
+
+  const paths  = countries.map((country) => ({
+    params: {id:country.alpha3Code}
+  }));
+
+  
+
+
+  return {
+    paths,
+    fallback: true,
+  };
+}
+
+export const getStaticProps = async ({ params }) => {
   const country = await getCountry(params.id);
+  if (!country.alpha3Code) {
+    return {
+      notFound: true,
+    };
+  }
   return {
     props: {
       country,
