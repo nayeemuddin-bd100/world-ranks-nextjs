@@ -59,15 +59,15 @@ const CountriesTable = ({ countries }) => {
     }
   return (
     <div>
-
       <div className={styles.heading}>
         <div className={styles.heading_flag}></div>
         <button
           className={styles.heading_name}
           onClick={() => setValueAndDirection("name")}
         >
-          <div>Filte By</div> <br/>
-          <div>Name</div>
+          <div>Filter By Name </div>
+          <br />
+
           {value === "name" && <SortArrow direction={direction} />}
         </button>
 
@@ -75,7 +75,7 @@ const CountriesTable = ({ countries }) => {
           className={styles.heading_population}
           onClick={() => setValueAndDirection("population")}
         >
-          <div>Population</div>
+          <div>Filter By Population</div>
           {value === "population" && <SortArrow direction={direction} />}
         </button>
 
@@ -84,7 +84,7 @@ const CountriesTable = ({ countries }) => {
           onClick={() => setValueAndDirection("area")}
         >
           <div>
-            Area (km<sup style={{ fontSize: "0.5rem" }}>2</sup>)
+            Filter By Area (km<sup style={{ fontSize: "0.5rem" }}>2</sup>)
           </div>
           {value === "area" && <SortArrow direction={direction} />}
         </button>
@@ -93,7 +93,7 @@ const CountriesTable = ({ countries }) => {
           className={styles.heading_gini}
           onClick={() => setValueAndDirection("gini")}
         >
-          <div>Gini</div>
+          <div>Filter By Gini</div>
           {value === "gini" && <SortArrow direction={direction} />}
         </button>
       </div>
