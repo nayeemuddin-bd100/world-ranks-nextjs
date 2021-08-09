@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import styles from "./Layout.module.css";
 
 const Layout = ({ children, title = "World Ranks" }) => {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState("dark");
 
     useEffect(() => {
       document.documentElement.setAttribute(
